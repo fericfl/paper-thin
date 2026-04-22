@@ -18,7 +18,7 @@ namespace DefaultNamespace
         {
             if (IsLocked)
             {
-                if (!Inventory.Instance._selectedItem != RequiredItem)
+                if (!Inventory.Instance.SelectedItem != RequiredItem)
                 {
                     return;
                 }

@@ -4,10 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Item", menuName = "Scriptable Objects/Item")]
 public class Item : ScriptableObject
 {
-    [field: SerializeField]
-    private String Name { get; set; }
-    [field: SerializeField]
-    private Sprite Icon { get; set; }
-    [field: SerializeField]
-    private bool Selectable { get; set; }
+    public String Name { get; set; }
+    public Sprite Icon { get; set; }
+    public bool Selectable { get; set; }
 }

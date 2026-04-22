@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Inventory
 {
@@ -13,8 +15,9 @@ public class Inventory
         }
     }
 
-    public Item _selectedItem { get; private set; }
-    private List<Item> _items;
+    public Item SelectedItem { get; private set; }
+    public event Action<Item> OnSelectedItemChanged;
+    private readonly List<Item> _items;
 
     private Inventory()
     {
@@ -25,9 +28,9 @@ public class Inventory
     {
         _items.Add(item);
         
-        if (_selectedItem == null)
+        if (SelectedItem == null)
         {
-            _selectedItem = item;
+            SelectedItem = item;
         }
     }
 
@@ -38,13 +41,13 @@ public class Inventory
 
     public bool RemoveItem(Item item)
     {
-        if (_selectedItem != item)
+        if (SelectedItem != item)
         {
             return _items.Remove(item);
         }
         
         var leftItem = GetLeftLoopItem();
-        _selectedItem = leftItem == item ? null : leftItem;
+        SelectedItem = leftItem == item ? null : leftItem;
         return _items.Remove(item);
     }
 
@@ -52,10 +55,10 @@ public class Inventory
     {
         if (_items.Count < 2)
         {
-            return _selectedItem;
+            return SelectedItem;
         }
         
-        var selectedItemIndex = _items.IndexOf(_selectedItem);
+        var selectedItemIndex = _items.IndexOf(SelectedItem);
         return selectedItemIndex == 0 ? _items[^1] : _items[selectedItemIndex - 1];
     }
 
@@ -63,10 +66,32 @@ public class Inventory
     {
         if (_items.Count < 2)
         {
-            return _selectedItem;
+            return SelectedItem;
         }
         
-        var selectedItemIndex = _items.IndexOf(_selectedItem);
+        var selectedItemIndex = _items.IndexOf(SelectedItem);
         return selectedItemIndex == _items.Count - 1 ? _items[0] : _items[selectedItemIndex + 1];
+    }
+
+    public void SelectLeftItem(InputAction.CallbackContext context)
+    {
+        if (!context.started)
+        {
+            return;
+        }
+        
+        SelectedItem = GetLeftLoopItem();
+        OnSelectedItemChanged?.Invoke(SelectedItem);
+    }
+
+    public void SelectRightItem(InputAction.CallbackContext context)
+    {
+        if (!context.started)
+        {
+            return;
+        }
+        
+        SelectedItem = GetRightLoopItem();
+        OnSelectedItemChanged?.Invoke(SelectedItem);
     }
 }
