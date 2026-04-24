@@ -213,7 +213,11 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: 128, y: 128}
+        - {x: -128, y: 128}
+        - {x: -128, y: 83}
+        - {x: 128, y: 83}
       tessellationDetail: 0
       bones: []
       spriteID: 1421348da9658e9409b77d8683852e63
@@ -235,7 +239,11 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: 128, y: 128}
+        - {x: -128, y: 128}
+        - {x: -128, y: 83}
+        - {x: 128, y: 83}
       tessellationDetail: 0
       bones: []
       spriteID: 190df1b1b5caa7a48a70c9e6a8273ea3
@@ -257,7 +265,11 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: 128, y: 128}
+        - {x: -128, y: 128}
+        - {x: -128, y: 83}
+        - {x: 128, y: 83}
       tessellationDetail: 0
       bones: []
       spriteID: aa116d96d5a26a3458c2448b52136382
@@ -335,7 +347,11 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: 128, y: 128}
+        - {x: -128, y: 128}
+        - {x: -128, y: 83}
+        - {x: 128, y: 83}
       tessellationDetail: 0
       bones: []
       spriteID: 5021ca0ec7427314aa43e6ed594a125e
@@ -348,7 +364,7 @@ TextureImporter:
       name: hospital_spooky_10
       rect:
         serializedVersion: 2
-        x: 512
+        x: 514
         y: 512
         width: 256
         height: 256
@@ -357,7 +373,11 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: 128, y: 128}
+        - {x: -128, y: 128}
+        - {x: -128, y: 83}
+        - {x: 128, y: 83}
       tessellationDetail: 0
       bones: []
       spriteID: 40d0d450a1a5b0b4480960667de41368
