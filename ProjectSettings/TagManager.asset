@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Flashlight
   layers:
   - Default
   - TransparentFX
@@ -13,8 +14,9 @@ TagManager:
   - UI
   - Interactable
   - Auto Pickupable
-  - Monster
-  - Light
+  - Floor
+  - 
+  - 
   - 
   - 
   - 
