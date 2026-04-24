@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ToiletPaper
   m_EditorClassIdentifier: Assembly-CSharp::AbstractItem
   <Name>k__BackingField: Toilet Paper
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: -8504030443102896445, guid: 16adbc29e2cef56478dffade1f52afb4, type: 3}
   <Selectable>k__BackingField: 1

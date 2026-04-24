@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e34e6f678b33c10fcbd4ff96bad6909a, type: 3}
-  m_Name: Battery
-  m_EditorClassIdentifier: Assembly-CSharp::AbstractItem
-  <Name>k__BackingField: Battery
-  <Icon>k__BackingField: {fileID: 500404155798112269, guid: 16adbc29e2cef56478dffade1f52afb4, type: 3}
-  <Selectable>k__BackingField: 0
+  m_Name: X-Ray Room Key
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  <Name>k__BackingField: X-Ray Room Key
+  <Icon>k__BackingField: {fileID: 3045082175192340224, guid: 16adbc29e2cef56478dffade1f52afb4, type: 3}
+  <Selectable>k__BackingField: 1

@@ -13,19 +13,26 @@ public class SelectedItemUIHandler : MonoBehaviour
 
     private void Start()
     {
-        Inventory.Instance.OnSelectedItemChanged += UpdateSelectedItemUI;
+        Inventory.Instance.OnSelectedItemChanged += UpdateUISelectedItemChanged;
+        Inventory.Instance.OnItemsChanged += UpdateUIItemsChanged;
         
-        UpdateSelectedItemUI(Inventory.Instance.SelectedItem);
+        UpdateUISelectedItemChanged(Inventory.Instance.SelectedItem);
     }
 
     private void OnDestroy()
     {
-        Inventory.Instance.OnSelectedItemChanged -= UpdateSelectedItemUI;
+        Inventory.Instance.OnSelectedItemChanged -= UpdateUISelectedItemChanged;
     }
 
-    private void UpdateSelectedItemUI(Item item)
+    private void UpdateUISelectedItemChanged(Item item)
     {
         SelectedItemImage.sprite = item?.Icon;
+        LeftItemImage.sprite = Inventory.Instance.GetLeftLoopItem()?.Icon;
+        RightItemImage.sprite = Inventory.Instance.GetRightLoopItem()?.Icon;
+    }
+
+    private void UpdateUIItemsChanged()
+    {
         LeftItemImage.sprite = Inventory.Instance.GetLeftLoopItem()?.Icon;
         RightItemImage.sprite = Inventory.Instance.GetRightLoopItem()?.Icon;
     }

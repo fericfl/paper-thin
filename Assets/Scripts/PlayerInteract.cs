@@ -1,4 +1,6 @@
+using System;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,9 +8,11 @@ namespace DefaultNamespace
 {
     public class PlayerInteract : MonoBehaviour
     {
+        [field: SerializeField]
         public Vector2 InteractionCircleCenter { get; private set; }
+        [field: SerializeField]
         public float InteractionCircleRadius { get; private set; }
-        
+
         public void OnPickup(InputAction.CallbackContext context)
         {
             if (!context.started)
@@ -16,12 +20,13 @@ namespace DefaultNamespace
                 return;
             }
             
-            var colliders = Physics.OverlapSphere(InteractionCircleCenter, InteractionCircleRadius, LayerMask.GetMask("Interactable"));
+            Debug.Log("Interacting");
+            var colliders = Physics2D.OverlapCircleAll((Vector2)transform.position + InteractionCircleCenter, InteractionCircleRadius, LayerMask.GetMask("Interactable", "Auto Pickupable"));
             var interactables = colliders.Select(GetInteractable).Where(interactable => interactable).ToList();
             interactables.ForEach(interactable => interactable.Interact());
         }
         
-        private InteractableObject GetInteractable(Collider collider)
+        private InteractableObject GetInteractable(Collider2D collider)
         {
             var currentGameObject = collider.gameObject;
             while (currentGameObject)
@@ -42,6 +47,20 @@ namespace DefaultNamespace
             }
             
             return null;
+        }
+    }
+    
+    [CustomEditor(typeof(PlayerInteract))]
+    class PlayerInteractEditor : Editor
+    {
+        private void OnSceneGUI()
+        {
+            var playerInteract = (PlayerInteract)target;
+            var position = playerInteract.transform.position;
+            var center = position + (Vector3)playerInteract.InteractionCircleCenter;
+            
+            Handles.color = Color.green;
+            Handles.DrawWireDisc(center, Vector3.forward, playerInteract.InteractionCircleRadius);
         }
     }
 }

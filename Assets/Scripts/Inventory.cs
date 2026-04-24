@@ -17,6 +17,7 @@ public class Inventory
 
     public Item SelectedItem { get; private set; }
     public event Action<Item> OnSelectedItemChanged;
+    public event Action OnItemsChanged;
     private readonly List<Item> _items;
 
     private Inventory()
@@ -31,7 +32,10 @@ public class Inventory
         if (SelectedItem == null)
         {
             SelectedItem = item;
+            OnSelectedItemChanged?.Invoke(SelectedItem);
         }
+        
+        OnItemsChanged?.Invoke();
     }
 
     public bool ContainsItem(Item item)
@@ -43,12 +47,27 @@ public class Inventory
     {
         if (SelectedItem != item)
         {
-            return _items.Remove(item);
+            return TryRemoveItem(item);
         }
         
         var leftItem = GetLeftLoopItem();
         SelectedItem = leftItem == item ? null : leftItem;
-        return _items.Remove(item);
+        OnSelectedItemChanged?.Invoke(SelectedItem);
+        
+        return TryRemoveItem(item);
+    }
+    
+    private bool TryRemoveItem(Item item)
+    {
+        var removed = _items.Remove(item);
+
+        if (!removed)
+        {
+            return false;
+        }
+        
+        OnItemsChanged?.Invoke();
+        return true;
     }
 
     public Item GetLeftLoopItem()

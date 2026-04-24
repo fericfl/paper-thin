@@ -4,7 +4,9 @@ namespace DefaultNamespace
 {
     public class InteractableLockedDoor : InteractableDoor
     {
+        [field: SerializeField]
         public bool IsLocked  { get; private set; }
+        [field: SerializeField]
         public Item RequiredItem { get; private set; }
         
         protected override void Start()
