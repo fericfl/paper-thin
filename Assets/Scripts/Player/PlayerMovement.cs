@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private Transform flashlightDebug;
     [SerializeField] private float moveSpeed = 5f;
     private Rigidbody2D rb;
     private Vector2 moveInput;
@@ -18,11 +19,11 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         rb.linearVelocity = moveInput * moveSpeed;
         UpdateAnimation();
+        UpdateFlashlightRotation();
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -58,6 +59,15 @@ public class PlayerMovement : MonoBehaviour
             {
                 ChangeAnimationState("Idle_Down");
             }
+        }
+    }
+
+    private void UpdateFlashlightRotation()
+    {
+        if (lastDirection != Vector2.zero && flashlightDebug != null)
+        {
+            float angle = Mathf.Atan2(lastDirection.y, lastDirection.x) * Mathf.Rad2Deg + 90f;
+            flashlightDebug.rotation = Quaternion.Euler(0, 0, angle);
         }
     }
 
