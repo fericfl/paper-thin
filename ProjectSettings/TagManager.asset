@@ -15,8 +15,7 @@ TagManager:
   - Interactable
   - Auto Pickupable
   - Floor
-  - 
-  - 
+  - Wall
   - 
   - 
   - 
@@ -40,14 +39,29 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Light
+    uniqueID: 3568859057
+    locked: 0
+  - name: Normal Background
+    uniqueID: 68673719
+    locked: 0
+  - name: Creepy Background
+    uniqueID: 1123183215
+    locked: 0
+  - name: Normal Floor
+    uniqueID: 1360710929
+    locked: 0
+  - name: Creepy Floor
+    uniqueID: 1843905657
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Background
-    uniqueID: 68673719
+  - name: Normal Foreground
+    uniqueID: 589066193
     locked: 0
-  - name: Floor
-    uniqueID: 1360710929
+  - name: Creepy Foreground
+    uniqueID: 2929905837
     locked: 0
   - name: Player
     uniqueID: 1065547507
