@@ -25,6 +25,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] float kittyChaseDuration = 3f;
 
     NavMeshAgent agent;
+    Animator animator;
+    private string currentAnimState;
     [SerializeField] private EnemyState currentState = EnemyState.ChasingMonster;
     private Coroutine activeReactionRoutine;
 
@@ -34,6 +36,7 @@ public class Enemy : MonoBehaviour
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         agent.speed = monsterMoveSpeed;
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -56,6 +59,7 @@ public class Enemy : MonoBehaviour
                 agent.SetDestination(fleeTarget);
                 break;
         }
+        UpdateAnimation();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -72,30 +76,54 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator LightReactionSequence()
     {
-        //Debug.Log("I am here");
         currentState = EnemyState.FrozenKitty;
         agent.isStopped = true;
-
-        // TODO: Tell Animator to play Kitty Transform/Shocked animation!
-
+        AudioManager.Instance.PlaySFX("cat_long_meow");
         yield return new WaitForSeconds(freezeDuration);
 
         currentState = EnemyState.FleeingKitty;
         agent.isStopped = false;
         agent.speed = kittyMoveSpeed;
-
-        // TODO: Tell Animator to play Kitty Running animation!
-
         yield return new WaitForSeconds(fleeDuration);
 
         currentState = EnemyState.ChasingKitty;
-
         yield return new WaitForSeconds(kittyChaseDuration);
 
         currentState = EnemyState.ChasingMonster;
         agent.speed = monsterMoveSpeed;
+        AudioManager.Instance.PlaySFX("cat_transform");
 
-        // TODO: Tell Animator to play Monster Transform animation!
         activeReactionRoutine = null;
+    }
+
+    private void UpdateAnimation()
+    {
+        string suffix = (currentState != EnemyState.ChasingMonster) ? "_Cat" : "";
+
+        string baseAnim = "Idle";
+
+        if (agent.velocity.sqrMagnitude > 0.01f)
+        {
+            if (Mathf.Abs(agent.velocity.x) > Mathf.Abs(agent.velocity.y))
+            {
+                if (agent.velocity.x > 0) baseAnim = "Run_Right";
+                else baseAnim = "Run_Left";
+            }
+            else
+            {
+                if (agent.velocity.y > 0) baseAnim = "Run_Back";
+                else baseAnim = "Run_Front";
+            }
+        }
+
+        ChangeAnimationState(baseAnim + suffix);
+    }
+
+    private void ChangeAnimationState(string newState)
+    {
+        if (currentAnimState == newState) return;
+
+        animator.Play(newState);
+        currentAnimState = newState;
     }
 }
