@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -50,6 +52,7 @@ namespace DefaultNamespace
         }
     }
     
+    #if UNITY_EDITOR
     [CustomEditor(typeof(PlayerInteract))]
     class PlayerInteractEditor : Editor
     {
@@ -63,4 +66,5 @@ namespace DefaultNamespace
             Handles.DrawWireDisc(center, Vector3.forward, playerInteract.InteractionCircleRadius);
         }
     }
+    #endif
 }
